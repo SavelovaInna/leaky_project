@@ -1,0 +1,17 @@
+<h1>{{ object.title }}</h1>
+<p>{{ object.text }}</p>
+<p>Reporter: {{ object.author.username }}</p>
+<p>Published: {{ object.publish_date|date }}</p>
+
+{% autoescape off %}
+    {% for comment in object.comments.all %}
+        <p>{{ comment.author_name }}</p>
+        <a href={{ comment.profile_link }}>Ccылка на профиль</a>
+        <p>{{ comment.text }} </p>
+    {% endfor %}
+
+{% endautoescape %}
+<form action="add_comment/" method="post">{% csrf_token %}
+    {{ comment_form }}
+    <button type="submit">Добавить комментарий</button>
+</form>
